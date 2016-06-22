@@ -1,1 +1,37 @@
-console.log('hello world');
+const cards = (state, action) => {
+	switch(action.type) {
+		case 'ADD_CARD':
+			let newCard = Object.assign({}, action.data, {
+				score: 1,
+				id: +new Date
+			});
+				return state.concat([newCard]);
+			default: 
+				return state || [];
+	}
+};
+
+const store = Redux.createStore(Redux.combineReducers({
+	cards
+}));
+
+store.subscribe(function() {
+	console.log(store.getState());
+});
+
+store.dispatch({
+	type: 'ADD_CARD',
+	data: {
+		front: 'front',
+		back: 'back'
+	}
+});
+
+const App = (props) => {
+	return(<h1>Angie I love u!</h1>);	
+};
+
+ReactDOM.render(
+	<App />,
+	document.getElementById('root')
+);
