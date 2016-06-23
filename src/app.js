@@ -28,10 +28,30 @@ store.dispatch({
 });
 
 const App = (props) => {
-	return(<h1>Angie I love u!</h1>);	
+	return(<div>{props.children}</div>);	
 };
 
+const Sidebar = React.createClass({
+	render() {
+		let props = this.props;
+
+		return(
+			<div class="col-sm-4">
+				<h3>Add a deck</h3>
+				<ul>
+					{props.decks.map((deck, i) => 
+							<li key={i}>{deck.name}</li>
+						)}
+				</ul>
+				{props.addingDeck && <input ref='add' />}
+			</div>
+		);
+	}
+});
+
 ReactDOM.render(
-	<App />,
+	<App>
+		<Sidebar decks={ [{name: 'test123'}] } addingDeck={true} />
+	</App>,
 	document.getElementById('root')
 );

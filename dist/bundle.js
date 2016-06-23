@@ -32,12 +32,45 @@ store.dispatch({
 
 var App = function App(props) {
 	return React.createElement(
-		'h1',
+		'div',
 		null,
-		'Angie I love u!'
+		props.children
 	);
 };
 
-ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+var Sidebar = React.createClass({
+	displayName: 'Sidebar',
+	render: function render() {
+		var props = this.props;
+
+		return React.createElement(
+			'div',
+			{ 'class': 'col-sm-4' },
+			React.createElement(
+				'h3',
+				null,
+				'Add a deck'
+			),
+			React.createElement(
+				'ul',
+				null,
+				props.decks.map(function (deck, i) {
+					return React.createElement(
+						'li',
+						{ key: i },
+						deck.name
+					);
+				})
+			),
+			props.addingDeck && React.createElement('input', { ref: 'add' })
+		);
+	}
+});
+
+ReactDOM.render(React.createElement(
+	App,
+	null,
+	React.createElement(Sidebar, { decks: [{ name: 'test123' }], addingDeck: true })
+), document.getElementById('root'));
 
 },{}]},{},[1]);
